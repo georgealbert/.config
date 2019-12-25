@@ -16,7 +16,7 @@ endif
 let g:loaded_python_provider=0
 
 " Custom mapping <leader> (see `:h mapleader` for more info)
-let mapleader = ','
+" let mapleader = '\'
 "}}
 
 "{{ Disable loading certain plugins

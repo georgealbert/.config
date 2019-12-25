@@ -28,7 +28,11 @@ endif
 if g:nvim_system_wide
     let g:PLUGIN_HOME="/usr/local/share/nvim/site"
 else
-    let g:PLUGIN_HOME=expand(stdpath('data') . '/plugged')
+    " 放到windows的user/USER_NAME/appdata/nvim-data目录不好
+    " let g:PLUGIN_HOME=expand(stdpath('data') . '/plugged')
+
+    " pluggin的目录使用~/.config/nvim/plugged
+    let g:PLUGIN_HOME=g:nvim_config_root . '/plugged'
 endif
 "}}
 
@@ -82,11 +86,11 @@ Plug 'ervandew/supertab'
 " endif
 
 " Only use fzf for Linux and Mac since fzf does not work well for Windows
-if has('unix')
-    " fuzzy file search and more
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
-endif
+" if has('unix')
+"     " fuzzy file search and more
+"     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"     Plug 'junegunn/fzf.vim'
+" endif
 
 " Another similar plugin is command-t
 " Plug 'wincent/command-t'
@@ -113,8 +117,13 @@ endif
 
 " colorful status line and theme
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+
+" Plug 'vim-airline/vim-airline-themes'
+
 " Plug 'mhinz/vim-startify'
+
+" 不能直接用，要放到colors目录下
+Plug 'hukl/Smyck-Color-Scheme'
 "}}
 
 "{{ Plugin to deal with URL
@@ -310,6 +319,7 @@ Plug 'andymass/vim-matchup'
 " using lsp
 " https://github.com/neoclide/coc.nvim
 " Use release branch
+" 为了go的开发，比emacs的lsp-mode和eglot都好用，开箱即用。唉，搞不定emacs
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -554,11 +564,14 @@ let g:SimpylFold_fold_docstring = 0
 """"""""""""""""""""""" nerdtree settings """"""""""""""""""""""""""
 " Toggle nerdtree window and keep cursor in file window,
 " adapted from http://tinyurl.com/y2kt8cy9
-nnoremap <silent> <Space>s :NERDTreeToggle<CR>:wincmd p<CR>
+" nnoremap <silent> <Space>s :NERDTreeToggle<CR>:wincmd p<CR>
+
+" 习惯用leader key + p，貌似space被coc.nvim霸占了。
+nmap <silent> <leader>p :NERDTreeToggle<cr>%
 
 " Reveal currently editted file in nerdtree widnow,
 " see https://goo.gl/kbxDVK
-nnoremap <silent> <Space>f :NERDTreeFind<CR>
+nnoremap <silent> <leader>f :NERDTreeFind<CR>
 
 " Ignore certain files and folders
 let NERDTreeIgnore = ['\.pyc$', '^__pycache__$']
