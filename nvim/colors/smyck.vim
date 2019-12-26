@@ -94,4 +94,9 @@ hi link rubyInterpolation     Interpolation
 hi link rubyInterpolationDelimiter    Interpolation
 hi link rubyRailsMethod       Method
 
+" For neovim terminal mode, display terminal cursor.
+if has('nvim')
+  hi! link TermCursor Cursor
+  hi TermCursorNC guifg=#002b36 guibg=#657b83 guisp=NONE gui=NONE cterm=NONE
+endif
 
